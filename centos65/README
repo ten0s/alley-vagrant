@@ -1,0 +1,33 @@
+#
+# Creating CentOS 6.5 (2.6.32-504) based on chef/centos-6.5 (2.6.32-431) (GuestAdditions 4.3.8) using VirtualBox 4.3.12
+#
+
+vagrant init chef/centos-6.5
+vagrant up
+# upgrading GuestAdditions from 4.3.8 to 4.3.12 and mounting /vagrant shared folder fail
+```
+Failed to mount folders in Linux guest. This is usually because
+the "vboxsf" file system is not available. Please verify that
+the guest additions are properly installed in the guest and
+can work properly. The command attempted was:
+
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` vagrant /vagrant
+
+The error output from the last command was:
+
+/sbin/mount.vboxsf: mounting failed with the error: No such device
+```
+vagrant ssh
+sudo yum -y update kernel
+exit
+vagrant reload
+
+vagrant ssh
+uname -a
+rm -rf /opt/VBoxGuestAdditions-4.3.8/
+Linux localhost.localdomain 2.6.32-504.1.3.el6.x86_64 #1 SMP Tue Nov 11 17:57:25 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+exit
+
+vagrant package --output ten0s-centos6.5.box
+vagrant box add [-f] ten0s/centos-6.5 ./ten0s-centos6.5.box
