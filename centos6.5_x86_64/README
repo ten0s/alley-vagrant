@@ -15,5 +15,5 @@ $ vagrant ssh -c 'sudo yum -y remove gcc kernel-devel perl'
 $ vagrant vbguest --status
 GuestAdditions 4.3.20 running --- OK.
 
-$ vagrant package --output ten0s-centos6.5-x86_64.box
-$ vagrant box add -f ten0s/centos6.5-x86_64 ./ten0s-centos6.5-x86_64.box
+$ vagrant package --output ten0s_centos6.5_x86_64.box
+$ vagrant box add -f ten0s/centos6.5_x86_64 ./ten0s_centos6.5_x86_64.box
