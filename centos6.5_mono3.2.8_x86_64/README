@@ -1,0 +1,28 @@
+#
+# Creating CentOS 6.5 x86_64 with Mono 3.2.8 box
+#
+
+$ vagrant init ten0s/centos6.5_x86_64
+$ vagrant up
+$ vagrant ssh
+  sudo su
+  adduser bms
+  cat > /etc/yum.repos.d/pmm-base.repo <<EOF
+[pmm-base]
+name=PMM Base repository.
+enabled=1
+gpgcheck=0
+baseurl=http://sus.dev1team.net/rawshaun-sus/pmm-base/base/
+EOF
+  yum -y install epel-release
+  yum -y update
+  yum -y install libgdiplus libgdiplus-devel
+  yum -y install pmm-mono-3.2.8-rel_VisualBasicPatch_20141022.x86_64
+  cat >> /etc/profile <<EOF
+
+source /opt/mono-3.2.8/env.rc
+
+EOF
+
+$ vagrant package --output ten0s_centos6.5_mono3.2.8_x86_64.box
+$ vagrant box add -f ten0s/centos6.5_mono3.2.8_x86_64 ./ten0s_centos6.5_mono3.2.8_x86_64.box
