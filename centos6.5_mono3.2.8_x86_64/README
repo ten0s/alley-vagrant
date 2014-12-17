@@ -7,6 +7,11 @@ $ vagrant up
 $ vagrant ssh
   sudo su
   adduser bms
+  cat >> /etc/hosts <<EOF
+
+178.124.154.132 sus.dev1team.net
+
+EOF
   cat > /etc/yum.repos.d/pmm-base.repo <<EOF
 [pmm-base]
 name=PMM Base repository.
