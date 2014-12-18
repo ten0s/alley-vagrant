@@ -7,7 +7,8 @@ $ vagrant up
 $ vagrant ssh-config
 </pre>
 
-Make sure ssh config matches data in **inventory** file. Then check the connection.
+Make sure ssh config matches data in **inventory** file.
+Then check the connection.
 
 <pre>
 $ ansible vb-mono -i inventory -m ping
@@ -17,11 +18,13 @@ vb-mono | success >> {
 }
 </pre>
 
+Provision the box.
+
 <pre>
 $ ansible-playbook setup-mono.yml -i inventory
 </pre>
 
-## or Create the box manually
+## Create the box manually
 
 <pre>
 $ vagrant up
