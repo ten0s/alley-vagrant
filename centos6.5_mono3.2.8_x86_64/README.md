@@ -1,6 +1,6 @@
-## Creating CentOS 6.5 x86_64 with Mono 3.2.8 box
+# Creating CentOS 6.5 x86_64 with Mono 3.2.8 box
 
-# Create the box using Ansible
+## Create the box using Ansible
 
 <pre>
 $ vagrant up
@@ -21,7 +21,7 @@ vb-mono | success >> {
 $ ansible-playbook setup-mono.yml -i inventory
 </pre>
 
-# Create the box manually
+## or Create the box manually
 
 <pre>
 $ vagrant up
@@ -47,7 +47,7 @@ source /opt/mono-3.2.8/env.rc
 EOF
 </pre>
 
-# Package the provisioned box
+## Package the provisioned box
 
 <pre>
 $ vagrant package --output ten0s_centos6.5_mono3.2.8_x86_64.box
