@@ -31,10 +31,10 @@ $ vagrant up
 $ vagrant ssh
   sudo su
   adduser bms
-  cat >> /etc/hosts <<EOF
+  cat &gt;&gt; /etc/hosts &lt;&lt;EOF
 178.124.154.132 sus.dev1team.net
 EOF
-  cat > /etc/yum.repos.d/pmm-base.repo <<EOF
+  cat &gt; /etc/yum.repos.d/pmm-base.repo &lt;&lt;EOF
 [pmm-base]
 name=PMM Base repository.
 enabled=1
@@ -45,7 +45,7 @@ EOF
   yum -y update
   yum -y install libgdiplus libgdiplus-devel
   yum -y install pmm-mono-3.2.8-rel_VisualBasicPatch_20141022.x86_64
-  cat >> /etc/profile <<EOF
+  cat &gt;&gt; /etc/profile &lt;&lt;EOF
 source /opt/mono-3.2.8/env.rc
 EOF
 </pre>
