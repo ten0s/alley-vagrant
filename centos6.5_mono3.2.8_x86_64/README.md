@@ -21,7 +21,7 @@ vb-mono | success >> {
 Provision the box.
 
 <pre>
-$ ansible-playbook setup-mono.yml -i inventory
+$ ansible-playbook setup.yml -i inventory
 </pre>
 
 ## Create the box manually
