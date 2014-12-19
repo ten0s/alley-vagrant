@@ -64,8 +64,8 @@ sudo chkconfig nginx on
 Supervisord
 
 <pre>
-wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
-sudo python /tmp/get-pip.py
+sudo yum -y install python-setuptools
+sudo easy_install pip
 sudo pip install supervisor
 sudo mkdir -p /etc/supervisor.d
 sudo mkdir -p /var/log/pmm
