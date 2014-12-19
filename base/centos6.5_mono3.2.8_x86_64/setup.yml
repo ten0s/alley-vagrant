@@ -15,9 +15,9 @@
       dest=/etc/hosts
       line='178.124.154.132 sus.dev1team.net'
 
-  - name: Copy /etc/yum.repos.d/pmm-base.repo
+  - name: Create /etc/yum.repos.d/pmm-base.repo
     copy: >
-      src=etc/yum.repos.d/pmm-base.repo
+      src=files/etc/yum.repos.d/pmm-base.repo
       dest=/etc/yum.repos.d/pmm-base.repo
       mode=644
 
