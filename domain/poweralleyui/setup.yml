@@ -2,34 +2,124 @@
 - hosts: machine
   sudo: yes
   tasks:
+
+  #
+  # Install deps needed to run the tasks below
+  #
+
+  - name: Install MySQL-python needed for mysql_* modules
+    yum: name=MySQL-python state=present
+
   - name: Install libselinux-python
-    yum: >
-      name=libselinux-python
-      state=present
+    yum: name=libselinux-python state=present
+
+  - name: Install python-setuptools
+    yum: name=python-setuptools
+
+  - name: Install pip
+    easy_install: name=pip
+
+  #
+  # Create user
+  #
 
   - name: Create 'bms' user
     user: name=bms
 
-  - name: Add sus.dev1team.net IP to /etc/hosts
-    lineinfile: >
-      dest=/etc/hosts
-      line='178.124.154.132 sus.dev1team.net'
+  #
+  # Install and configure MySQL
+  #
 
-  - name: Copy /etc/yum.repos.d/pmm-base.repo
+  - name: Install MySQL
+    yum: >
+      name=mysql-server-5.1.73
+      state=present
+
+  - name: Enable mysqld service
+    service: name=mysqld state=started enabled=yes
+
+  - name: Setup DB priviledges
+    mysql_user: >
+      name=pmm
+      host={{item}}
+      password=PASSWORD
+      priv=*.*:ALL,GRANT
+      state=present
+    mysql_user: >
+      name=pmm
+      host={{item}}
+      password=PASSWORD
+      priv=*.*:ALL,GRANT
+      state=present
+    with_items:
+    - localhost
+    - '%'
+
+  - name: Copy configuration
     copy: >
-      src=etc/yum.repos.d/pmm-base.repo
-      dest=/etc/yum.repos.d/pmm-base.repo
-      mode=644
+      src=files/etc/my.cnf
+      dest=/etc/my.cnf
 
-  - name: Install EPEL
-    yum: name=epel-release state=present
+  #
+  # Install and configure Nginx
+  #
 
-  - name: Install Mono
-    yum: name=libgdiplus state=present
-    yum: name=libgdiplus-devel state=present
-    yum: name=pmm-mono-3.2.8-rel_VisualBasicPatch_20141022.x86_64
+  - name: Install Nginx
+    yum: >
+      name=nginx-1.0.15
+      state=present
 
-  - name: Add Mono env to /etc/profile
-    lineinfile: >
-      dest=/etc/profile
-      line='source /opt/mono-3.2.8/env.rc'
+  - name: Enable nginx service
+    service: name=nginx state=started enabled=yes
+
+  - name: Copy configuration
+    copy: src={{item.src}} dest={{item.dest}}
+    with_items:
+    - {src: files/etc/nginx/nginx.conf,
+       dest: /etc/nginx/nginx.conf}
+    - {src: files/etc/nginx/conf.d/server.conf,
+       dest: /etc/nginx/conf.d/server.conf}
+    - {src: files/etc/nginx/fastcgi_params,
+       dest: /etc/nginx/fastcgi_params}
+
+  #
+  # Install and configure Supervisord
+  #
+
+  - name: Install Supervisord
+    pip: name=supervisor
+
+  - name: Create Supervisord's config dir
+    file: >
+      path={{item.path}} state=directory
+      owner={{item.owner}} group={{item.group}}
+    with_items:
+    - {path: /etc/supervisor.d,
+       owner: root,
+       group: root}
+    - {path: /opt/bin,
+       owner: root,
+       group: root}
+    - {path: /var/log/pmm,
+       owner: bms,
+       group: bms}
+
+  - name: Copy configuration
+    copy: >
+      src={{item.src}} dest={{item.dest}} mode={{item.mode}}
+    with_items:
+    - {src: files/etc/supervisord.conf,
+       dest: /etc/supervisord.conf,
+       mode: 644}
+    - {src: files/etc/supervisor.d/poweralleyui.conf,
+       dest: /etc/supervisor.d/poweralleyui.conf,
+       mode: 644}
+    - {src: files/etc/init.d/supervisord,
+       dest: /etc/init.d/supervisord,
+       mode: 755}
+    - {src: files/opt/bin/poweralleyui.sh,
+       dest: /opt/bin/poweralleyui.sh,
+       mode: 755}
+
+  - name: Enable supervisord service
+    service: name=supervisord state=started enabled=yes
