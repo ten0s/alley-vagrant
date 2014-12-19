@@ -1,5 +1,5 @@
 ---
-- hosts: vb-mono
+- hosts: machine
   sudo: yes
   tasks:
   - name: Install libselinux-python

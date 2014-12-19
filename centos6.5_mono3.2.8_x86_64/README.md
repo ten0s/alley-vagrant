@@ -11,8 +11,8 @@ Make sure ssh config matches data in **inventory** file.
 Then check the connection.
 
 <pre>
-$ ansible vb-mono -i inventory -m ping
-vb-mono | success >> {
+$ ansible machine -i inventory -m ping
+machine | success >> {
     "changed": false,
     "ping": "pong"
 }
