@@ -73,25 +73,25 @@ sudo chown -R bms:bms /var/log/pmm
 sudo cp files/etc/supervisord.conf /etc/supervisord.conf
 sudo cp files/etc/supervisor.d/poweralleyui.conf /etc/supervisor.d/
 sudo cp files/etc/init.d/supervisord /etc/init.d/
+sudo mkdir -p /opt/bin
+sudo cp files/opt/bin/poweralleyui.sh /opt/bin/
 sudo chkconfig supervisord on
 </pre>
 
 PowerAlleyUI
 
 <pre>
-sudo mkdir -p /opt/bin
-sudo cp files/opt/bin/poweralleyui.sh /opt/bin/
+sudo tar xfz poweralleyui-1.3.0.tar.gz -C /opt/
 sudo chown -R bms:bms /opt/poweralleyui-1.3.0
 sudo ln -s /opt/poweralleyui-1.3.0 /opt/poweralleyui
-sudo tar xfz poweralleyui-1.3.0.tar.gz -C /opt/
 </pre>
 
 Start everything
 
 <pre>
 sudo service mysqld restart
-sudo service supervisord restart
 sudo service nginx restart
+sudo service supervisord restart
 exit
 </pre>
 
