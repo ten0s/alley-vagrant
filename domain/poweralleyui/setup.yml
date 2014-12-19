@@ -4,17 +4,15 @@
   tasks:
 
   #
-  # Install deps needed to run the tasks below
+  # Install playbook deps
   #
 
-  - name: Install MySQL-python needed for mysql_* modules
-    yum: name=MySQL-python state=present
-
-  - name: Install libselinux-python
-    yum: name=libselinux-python state=present
-
-  - name: Install python-setuptools
-    yum: name=python-setuptools
+  - name: Install playbook deps
+    yum: name={{item}} state=present
+    with_items:
+    - MySQL-python
+    - libselinux-python
+    - python-setuptools
 
   - name: Install pip
     easy_install: name=pip
