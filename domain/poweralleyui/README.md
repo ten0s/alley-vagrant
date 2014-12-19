@@ -41,7 +41,7 @@ MySQL
 
 <pre>
 sudo yum -y install mysql-server-5.1.73
-sudo cp etc/my.cnf /etc/
+sudo cp files/etc/my.cnf /etc/
 sudo service mysqld start
 sudo chkconfig mysqld on
 mysql -u root
@@ -54,9 +54,9 @@ Nginx
 
 <pre>
 sudo yum -y install nginx-1.0.15
-sudo cp etc/nginx/nginx.conf /etc/nginx/
-sudo cp etc/nginx/conf.d/server.conf /etc/nginx/conf.d/
-sudo cp etc/nginx/fastcgi_params /etc/nginx/fastcgi_params
+sudo cp files/etc/nginx/nginx.conf /etc/nginx/
+sudo cp files/etc/nginx/conf.d/server.conf /etc/nginx/conf.d/
+sudo cp files/etc/nginx/fastcgi_params /etc/nginx/fastcgi_params
 sudo service nginx start
 sudo chkconfig nginx on
 </pre>
@@ -70,9 +70,9 @@ sudo pip install supervisor
 sudo mkdir -p /etc/supervisor.d
 sudo mkdir -p /var/log/pmm
 sudo chown -R bms:bms /var/log/pmm
-sudo cp etc/supervisord.conf /etc/supervisord.conf
-sudo cp etc/supervisor.d/poweralleyui.conf /etc/supervisor.d/
-sudo cp etc/init.d/supervisord /etc/init.d/
+sudo cp files/etc/supervisord.conf /etc/supervisord.conf
+sudo cp files/etc/supervisor.d/poweralleyui.conf /etc/supervisor.d/
+sudo cp files/etc/init.d/supervisord /etc/init.d/
 sudo chkconfig supervisord on
 </pre>
 
@@ -80,7 +80,7 @@ PowerAlleyUI
 
 <pre>
 sudo mkdir -p /opt/bin
-sudo cp opt/bin/poweralleyui.sh /opt/bin/
+sudo cp files/opt/bin/poweralleyui.sh /opt/bin/
 sudo chown -R bms:bms /opt/poweralleyui-1.3.0
 sudo ln -s /opt/poweralleyui-1.3.0 /opt/poweralleyui
 sudo tar xfz poweralleyui-1.3.0.tar.gz -C /opt/
