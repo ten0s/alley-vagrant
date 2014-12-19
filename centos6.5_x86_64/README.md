@@ -1,30 +1,4 @@
-# Creating CentOS 6.5 x86_64 (2.6.32-504) box
-# based on chef/centos-6.5 x86_64 (2.6.32-431) (GuestAdditions 4.3.8)
-# using VirtualBox 4.3.20
-
-## Create the box using Ansible
-
-<pre>
-$ vagrant up
-$ vagrant ssh-config
-</pre>
-
-Make sure ssh config matches data in **inventory** file.
-Then check the connection.
-
-<pre>
-$ ansible machine -i inventory -m ping
-vb-mono | success >> {
-    "changed": false,
-    "ping": "pong"
-}
-</pre>
-
-Provision the box.
-
-<pre>
-$ ansible-playbook setup.yml -i inventory
-</pre>
+# Creating CentOS 6.5 x86_64 (2.6.32-504) box based on chef/centos-6.5 x86_64 (2.6.32-431) (GuestAdditions 4.3.8) using VirtualBox 4.3.20
 
 ## Create the box manually
 
