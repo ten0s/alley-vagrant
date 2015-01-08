@@ -88,7 +88,7 @@
   #
 
   - name: Install Supervisord
-    pip: name=supervisor
+    pip: name=supervisor state=present
 
   - name: Create Supervisord's config dir
     file: >
