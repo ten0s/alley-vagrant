@@ -33,8 +33,16 @@
       name=mysql-server-5.1.73
       state=present
 
+  - name: Copy configuration
+    copy: >
+      src=files/etc/my.cnf
+      dest=/etc/my.cnf
+
   - name: Enable mysqld service
-    service: name=mysqld state=started enabled=yes
+    service: name=mysqld state=restarted enabled=yes
+
+  - name: Create DB
+    mysql_db: name=PowerAlley state=present
 
   - name: Setup DB priviledges
     mysql_user: >
@@ -53,11 +61,6 @@
     - localhost
     - '%'
 
-  - name: Copy configuration
-    copy: >
-      src=files/etc/my.cnf
-      dest=/etc/my.cnf
-
   #
   # Install and configure Nginx
   #
@@ -66,9 +69,6 @@
     yum: >
       name=nginx-1.0.15
       state=present
-
-  - name: Enable nginx service
-    service: name=nginx state=started enabled=yes
 
   - name: Copy configuration
     copy: src={{item.src}} dest={{item.dest}}
@@ -79,6 +79,9 @@
        dest: /etc/nginx/conf.d/server.conf}
     - {src: files/etc/nginx/fastcgi_params,
        dest: /etc/nginx/fastcgi_params}
+
+  - name: Enable nginx service
+    service: name=nginx state=restarted enabled=yes
 
   #
   # Install and configure Supervisord
@@ -120,4 +123,4 @@
        mode: 755}
 
   - name: Enable supervisord service
-    service: name=supervisord state=started enabled=yes
+    service: name=supervisord state=restarted enabled=yes
