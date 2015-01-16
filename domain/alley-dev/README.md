@@ -21,6 +21,26 @@ exit
 
 <pre>
 $ vagrant package --output ten0s-alley-dev.box
-$ vagrant box add -f ten0s/ten0s-alley-dev ./ten0s-alley-dev.box
+$ vagrant box add -f ten0s/alley-dev ./ten0s-alley-dev.box
 $ vagrant destroy --force
+</pre>
+
+## Usage
+
+<pre>
+cd somewhere
+vagrant init ten0s/alley-dev
+</pre>
+
+add to Vagrant file
+  config.vm.network "forwarded_port", guest: 27017, host: 27017
+  config.vm.network "forwarded_port", guest: 5672, host: 5672
+  config.vm.network "forwarded_port", guest: 8001, host: 8001
+  config.vm.network "forwarded_port", guest: 8002, host: 8002
+  config.vm.network "forwarded_port", guest: 8071, host: 8071
+
+<pre>
+vagrant up
+vagrant ssh
+sudo su - bms
 </pre>
