@@ -32,7 +32,7 @@ cd somewhere
 vagrant init ten0s/alley-dev
 </pre>
 
-add to Vagrant file
+Add to Vagrant file
 <pre>
   config.vm.network "forwarded_port", guest: 27017, host: 27017
   config.vm.network "forwarded_port", guest: 5672, host: 5672
@@ -46,3 +46,8 @@ vagrant up
 vagrant ssh
 sudo su - bms
 </pre>
+
+Change **smppsink** port from 2775 to 8002
+
+
+Run ./http_conf.sh
