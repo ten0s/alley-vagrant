@@ -33,11 +33,13 @@ vagrant init ten0s/alley-dev
 </pre>
 
 add to Vagrant file
+<pre>
   config.vm.network "forwarded_port", guest: 27017, host: 27017
   config.vm.network "forwarded_port", guest: 5672, host: 5672
   config.vm.network "forwarded_port", guest: 8001, host: 8001
   config.vm.network "forwarded_port", guest: 8002, host: 8002
   config.vm.network "forwarded_port", guest: 8071, host: 8071
+</pre>
 
 <pre>
 vagrant up
