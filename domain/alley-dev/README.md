@@ -53,3 +53,5 @@ Change **smppsink** port from 2775 to 8002
 Run ./http_conf.sh
 
 db.mt_messages.findAndModify({query:{s:'delivered', t:'regular'}, sort:{rqt:-1}, update:{$set:{ri:'85ccccbf-f854-4898-86b1-5072d3e33da1', 'da.a':'375296543210'}}})
+db.customers.update({customer_id:"1"}, {$set:{customer_id:"10001"}})
+db.customers.update({customer_id:"3"}, {$set:{customer_id:"10003"}})
