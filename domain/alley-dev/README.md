@@ -62,7 +62,7 @@ Start Funnel, Kelly, Just
 
 <pre>
 smppload -s375296660002 -d375296543210 -v -D
-<pre>
+</pre>
 
 <pre>
 mongo
