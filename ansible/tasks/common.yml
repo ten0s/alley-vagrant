@@ -1,0 +1,19 @@
+- name: Ensure libselinux-python is installed
+  yum: name=libselinux-python
+      state=present
+
+- name: Ensure EPEL is installed
+  yum: name=epel-release
+       state=present
+
+- name: Ensure user 'bms' exists
+  user: name=bms
+
+- name: Ensure sus.dev1team.net in /etc/hosts
+  lineinfile: dest=/etc/hosts
+              line='178.124.154.132 sus.dev1team.net'
+
+- name: Ensure PMM-Base repo is enabled
+  copy: src=files/pmm-base.repo
+        dest=/etc/yum.repos.d/pmm-base.repo
+        mode=644

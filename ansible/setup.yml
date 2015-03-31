@@ -1,0 +1,68 @@
+---
+- name: Setup
+  hosts: test
+  sudo: true
+  vars:
+  - download_dir: /tmp/
+  ## ?!? to erl_app defaults
+  - has_config: false
+  - name_suffix: ""
+  - user: bms # !! doesn't work :(
+  tasks:
+  - include: tasks/common.yml
+
+  - include: tasks/erl_app.yml
+    vars:
+        name: smppsink
+        version: 1.1.0
+        has_config: true
+
+  - include: tasks/erl_app.yml
+    vars:
+        name: kelly
+        version: 2.7.0
+        has_config: true
+        data_dir: /var/lib/kelly/
+        log_dir: /var/log/kelly/
+
+  - include: tasks/erl_app.yml
+    vars:
+        name: just
+        name_suffix: _mini
+        version: 2.7.0
+        has_config: true
+        data_dir: /var/lib/just/
+        log_dir: /var/log/just/
+
+  - include: tasks/erl_app.yml
+    vars:
+        name: funnel
+        name_suffix: _mini
+        version: 2.6.1
+        has_config: true
+        data_dir: /var/lib/funnel/
+        log_dir: /var/log/funnel/
+
+  - include: tasks/erl_app.yml
+    vars:
+        name: soap_srv
+        version: 2.7.0
+        has_config: true
+        data_dir: /var/lib/soap_srv/
+        log_dir: /var/log/soap_srv/
+
+  - include: tasks/erl_app.yml
+    vars:
+        name: mm_srv
+        version: 2.7.0
+        has_config: true
+        data_dir: /var/lib/mm_srv/
+        log_dir: /var/log/mm_srv/
+
+  - include: tasks/erl_app.yml
+    vars:
+        name: oneapi_srv
+        version: 2.6.0
+        has_config: true
+        data_dir: /var/lib/oneapi_srv/
+        log_dir: /var/log/oneapi_srv/

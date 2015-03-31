@@ -1,0 +1,46 @@
+[test]
+test ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
+
+[dev]
+alley-dev ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-alley-dev/0/virtualbox/vagrant_private_key
+
+[stg]
+alley-stg ansible_ssh_host=10.10.0.152 ansible_ssh_user=root
+
+#[demo]
+#alley-demo ansible_ssh_host=95.85.18.53 ansible_ssh_user=root
+
+[local:children]
+test
+dev
+stg
+
+#[remote:children]
+#demo
+
+#[local:vars]
+#http_proxy=
+
+#[remote:vars]
+#http_proxy=http://mirrorpkg1.dev1team.net:80
+
+[test:vars]
+rabbitmq_host=10.10.0.175
+rabbitmq_port=5672
+rabbitmq_user=alley
+rabbitmq_password=alley
+
+#smppsink_version=1.3.0
+#smppsink_port=2777
+
+#[dev:vars]
+#smppsink_version=1.3.0
+#smppsink_port=8002
+
+#[stg:vars]
+#smppsink_version=1.3.0
+#smppsink_port=8002
+
+#[demo:vars]
+#smppsink_version=1.1.0
+#smppsink_port=8002
