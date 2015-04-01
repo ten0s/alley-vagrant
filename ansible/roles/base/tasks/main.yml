@@ -1,4 +1,0 @@
----
-- include: ../../../tasks/base.yml
-  vars:
-      user: "{{run_user}}"

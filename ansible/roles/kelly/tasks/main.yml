@@ -1,9 +1,4 @@
 ---
-- include: ../../../tasks/erl_app.yml
-  vars:
-      name: kelly
-      version: "{{kelly_version}}"
-      has_config: true
-      data_dir: "{{base_data_dir}}/kelly/{{data_dir_suffix}}"
-      log_dir: "{{base_log_dir}}/kelly/"
-      user: "{{run_user}}"
+- name: "Provision config"
+  template: src=sys.config.j2
+            dest=/opt/kelly-{{kelly_version}}/releases/1/sys.config

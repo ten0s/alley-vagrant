@@ -1,7 +1,4 @@
 ---
-- include: ../../../tasks/erl_app.yml
-  vars:
-      name: smppsink
-      version: "{{smppsink_version}}"
-      has_config: true
-      user: "{{run_user}}"
+- name: "Provision config"
+  template: src=sys.config.j2
+            dest=/opt/smppsink-{{smppsink_version}}/releases/1/sys.config

@@ -1,0 +1,5 @@
+---
+dependencies:
+- {role: erl_app, name: smppsink,
+                  version: "{{smppsink_version}}",
+                  user: "{{run_user}}"}
