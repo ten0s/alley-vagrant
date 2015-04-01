@@ -1,16 +1,17 @@
-- name: "{{name}}: Register current version stat"
+---
+- name: "Register current version stat"
   stat: path=/opt/{{name}}{{name_suffix}}-{{version}}
   register: curr_ver_reg
   changed_when: false
 
-- name: "{{name}}: Download archive"
+- name: "Download archive"
   get_url: url=http://sus.dev1team.net/sus/poweralley/{{name}}{{name_suffix}}-{{version}}-centos6.x86_64.tar.gz
            dest={{download_dir}}
   environment:
     http_proxy: "{{http_proxy}}"
   when: not curr_ver_reg.stat.exists
 
-- name: "{{name}}: Unarchive"
+- name: "Unarchive"
   unarchive: src=/{{download_dir}}/{{name}}{{name_suffix}}-{{version}}-centos6.x86_64.tar.gz
              dest=/opt/
              copy=false
@@ -20,36 +21,36 @@
 # DATA DIR
 #
 
-- name: "{{name}}: Register data dir stat"
+- name: "Register data dir stat"
   stat: path={{data_dir}}
   register: data_dir_reg
   changed_when: false
   when: data_dir is defined
 
-- name: "{{name}}: Register ls of local data dir"
+- name: "Register ls of local data dir"
   command: ls /opt/{{name}}{{name_suffix}}-{{version}}/data/
   register: local_data_dir_reg
   changed_when: false
   when: data_dir is defined
 
-- name: "{{name}}: Ensure data dir exists"
+- name: "Ensure data dir exists"
   file: path={{data_dir}}
         state=directory
   when: data_dir is defined
 
-- name: "{{name}}: Copy local data dir contents"
+- name: "Copy local data dir contents"
   shell: cp -r /opt/{{name}}{{name_suffix}}-{{version}}/data/* {{data_dir}}
   when: (not curr_ver_reg.stat.exists) and
         (data_dir is defined) and
         (not data_dir_reg.stat.exists) and
         (local_data_dir_reg.stdout != "")
 
-- name: "{{name}}: Remove local data dir"
+- name: "Remove local data dir"
   file: path=/opt/{{name}}{{name_suffix}}-{{version}}/data
         state=absent
   when: (not curr_ver_reg.stat.exists) and (data_dir is defined)
 
-- name: "{{name}}: Create data dir link"
+- name: "Create data dir link"
   file: src={{data_dir}}
         dest=/opt/{{name}}{{name_suffix}}-{{version}}/data
         state=link
@@ -59,36 +60,36 @@
 # LOG DIR
 #
 
-- name: "{{name}}: Register log dir stat"
+- name: "Register log dir stat"
   stat: path={{log_dir}}
   register: log_dir_reg
   changed_when: false
   when: log_dir is defined
 
-- name: "{{name}}: Register ls of local log dir"
+- name: "Register ls of local log dir"
   command: ls /opt/{{name}}{{name_suffix}}-{{version}}/log/
   register: local_log_dir_reg
   changed_when: false
   when: data_dir is defined
 
-- name: "{{name}}: Ensure log dir exists"
+- name: "Ensure log dir exists"
   file: path={{log_dir}}
         state=directory
   when: log_dir is defined
 
-- name: "{{name}}: Move local log dir contents"
+- name: "Move local log dir contents"
   shell: cp -r /opt/{{name}}{{name_suffix}}-{{version}}/log/* {{log_dir}}
   when: (not curr_ver_reg.stat.exists) and
         (log_dir is defined) and
         (not log_dir_reg.stat.exists) and
         (local_log_dir_reg.stdout != "")
 
-- name: "{{name}}: Remove local log dir"
+- name: "Remove local log dir"
   file: path=/opt/{{name}}{{name_suffix}}-{{version}}/log
         state=absent
   when: (not curr_ver_reg.stat.exists) and (log_dir is defined)
 
-- name: "{{name}}: Create log dir link"
+- name: "Create log dir link"
   file: src={{log_dir}}
         dest=/opt/{{name}}{{name_suffix}}-{{version}}/log
         state=link
@@ -98,25 +99,25 @@
 #
 #
 
-- name: "{{name}}: Provision config"
+- name: "Provision config"
   template: src=templates/{{name}}/sys.config.j2
             dest=/opt/{{name}}{{name_suffix}}-{{version}}/releases/1/sys.config
   when: has_config
 
-- name: "{{name}}: Ensure correct rights"
+- name: "Ensure correct rights"
   file: path=/opt/{{name}}{{name_suffix}}-{{version}}
         owner={{user}}
         group={{user}}
         recurse=true
         follow=true
 
-- name: "{{name}}: Ensure link exists"
+- name: "Ensure link exists"
   file: src=/opt/{{name}}{{name_suffix}}-{{version}}
         dest=/opt/{{name}}
         state=link
         owner={{user}}
         group={{user}}
 
-#- name: "{{name}}: Remove archive"
+#- name: "Remove archive"
 #  file: path=/{{download_dir}}/{{name}}{{name_suffix}}-{{version}}-centos6.x86_64.tar.gz
 #        state=absent

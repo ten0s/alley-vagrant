@@ -1,0 +1,4 @@
+---
+smppsink_version: 1.3.0
+smppsink_smpp_addr: '{0,0,0,0}'
+smppsink_smpp_port: 2776

@@ -23,32 +23,11 @@ rabbitmq_password=alley
 
 rpc_timeout=30000
 
-funnel_version=2.6.1
-
-soap_version=2.7.0
-soap_http_addr={0,0,0,0}
-soap_http_port=8088
-
-mm_version=2.7.0
-mm_http_addr={0,0,0,0}
-mm_http_port=8081
-mm_root_url=""
-
-oneapi_version=2.6.0
-oneapi_http_addr={0,0,0,0}
-oneapi_http_port=8081
-
 kelly_version=2.6.0
-kelly_http_addr={0,0,0,0}
-kelly_http_port=8080
 kelly_mongodb={single, {"10.10.0.175", 27017}}
 kelly_receipt_batch_qos=5000
 
-just_version=2.7.0
-
 smppsink_version=1.1.0
-smppsink_smpp_addr={0,0,0,0}
-smppsink_smpp_port=2777
 
 [test2:vars]
 base_data_dir=/mnt/data
@@ -59,32 +38,9 @@ rabbitmq_port=5672
 rabbitmq_username=alley
 rabbitmq_password=alley
 
-#def
+#default
 rpc_timeout=5000
 
-funnel_version=2.6.1
-
-soap_version=2.7.0
-soap_http_addr={0,0,0,0}
-soap_http_port=8088
-
-mm_version=2.7.0
-mm_http_addr={0,0,0,0}
-mm_http_port=8081
-mm_root_url=""
-
-oneapi_version=2.6.0
-oneapi_http_addr={0,0,0,0}
-oneapi_http_port=8081
-
-kelly_version=2.7.0
-kelly_http_addr={0,0,0,0}
-kelly_http_port=8080
 kelly_mongodb={replica_set, {<<"alley">>, [{localhost, 40001}, {localhost, 40002}, {localhost, 40003}]}}
-kelly_receipt_batch_qos=100
-
-just_version=2.7.0
 
 smppsink_version=1.2.0
-smppsink_smpp_addr={0,0,0,0}
-smppsink_smpp_port=8003
