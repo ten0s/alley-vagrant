@@ -1,10 +1,21 @@
 $ vagrant up
 
 $ vagrant ssh-config
-Host default
+Host test1
   HostName 127.0.0.1
   User vagrant
   Port 2200
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+Host test2
+  HostName 127.0.0.1
+  User vagrant
+  Port 2203
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
   PasswordAuthentication no
@@ -17,21 +28,34 @@ $ cat ansible.cfg
 hostfile=inventory
 
 $ cat inventory
-[test]
-test ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
+[test1]
+test1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
+
+[test2]
+test2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
+
+[local:children]
+test1
+test2
 ...
 
-$ ansible test -m ping
-test | success >> {
+$ ansible local -m ping
+test1 | success >> {
     "changed": false,
     "ping": "pong"
 }
 
-$ ansible test -s -m yum -a "name=tokyocabinet state=present"
-test | success >> {
+test2 | success >> {
+    "changed": false,
+    "ping": "pong"
+}
+
+$ ansible local -s -m yum -a "name=tokyocabinet state=present"
+test1 | success >> {
     "changed": true,
-    "msg": "",
-    "rc": 0,
+...
+test2 | success >> {
+    "changed": true,
 ...
 
 $ ansible-playbook setup.yml
