@@ -105,8 +105,8 @@
 
 - name: "{{name}}: Ensure correct rights"
   file: path=/opt/{{name}}{{name_suffix}}-{{version}}
-        owner=bms
-        group=bms
+        owner={{user}}
+        group={{user}}
         recurse=true
         follow=true
 
@@ -114,8 +114,8 @@
   file: src=/opt/{{name}}{{name_suffix}}-{{version}}
         dest=/opt/{{name}}
         state=link
-        owner=bms
-        group=bms
+        owner={{user}}
+        group={{user}}
 
 #- name: "{{name}}: Remove archive"
 #  file: path=/{{download_dir}}/{{name}}{{name_suffix}}-{{version}}-centos6.x86_64.tar.gz
