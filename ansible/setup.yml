@@ -13,7 +13,7 @@
   - name_suffix: ""
   - user: bms # !! doesn't work :(
   tasks:
-  - include: tasks/common.yml
+  - include: tasks/base.yml
 
   - include: tasks/erl_app.yml
     vars:
