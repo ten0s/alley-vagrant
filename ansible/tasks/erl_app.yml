@@ -100,7 +100,7 @@
 
 - name: "{{name}}: Provision config"
   template: src=templates/{{name}}/sys.config.j2
-            dest=/opt/{{name}}{{name_suffix}}-{{version}}/releases/1/
+            dest=/opt/{{name}}{{name_suffix}}-{{version}}/releases/1/sys.config
   when: has_config
 
 - name: "{{name}}: Ensure correct rights"
