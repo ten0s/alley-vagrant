@@ -26,14 +26,23 @@
   changed_when: false
   when: data_dir is defined
 
+- name: "{{name}}: Register ls of local data dir"
+  command: ls /opt/{{name}}{{name_suffix}}-{{version}}/data/
+  register: local_data_dir_reg
+  changed_when: false
+  when: data_dir is defined
+
 - name: "{{name}}: Ensure data dir exists"
   file: path={{data_dir}}
         state=directory
   when: data_dir is defined
 
-- name: "{{name}}: Move local data dir contents"
-  command: mv /opt/{{name}}{{name_suffix}}-{{version}}/data/ {{data_dir}}
-  when: (not curr_ver_reg.stat.exists) and (data_dir is defined) and (not data_dir_reg.stat.exists)
+- name: "{{name}}: Copy local data dir contents"
+  shell: cp -r /opt/{{name}}{{name_suffix}}-{{version}}/data/* {{data_dir}}
+  when: (not curr_ver_reg.stat.exists) and
+        (data_dir is defined) and
+        (not data_dir_reg.stat.exists) and
+        (local_data_dir_reg.stdout != "")
 
 - name: "{{name}}: Remove local data dir"
   file: path=/opt/{{name}}{{name_suffix}}-{{version}}/data
@@ -56,14 +65,23 @@
   changed_when: false
   when: log_dir is defined
 
+- name: "{{name}}: Register ls of local log dir"
+  command: ls /opt/{{name}}{{name_suffix}}-{{version}}/log/
+  register: local_log_dir_reg
+  changed_when: false
+  when: data_dir is defined
+
 - name: "{{name}}: Ensure log dir exists"
   file: path={{log_dir}}
         state=directory
   when: log_dir is defined
 
 - name: "{{name}}: Move local log dir contents"
-  command: mv /opt/{{name}}{{name_suffix}}-{{version}}/log/ {{log_dir}}
-  when: (not curr_ver_reg.stat.exists) and (log_dir is defined) and (not log_dir_reg.stat.exists)
+  shell: cp -r /opt/{{name}}{{name_suffix}}-{{version}}/log/* {{log_dir}}
+  when: (not curr_ver_reg.stat.exists) and
+        (log_dir is defined) and
+        (not log_dir_reg.stat.exists) and
+        (local_log_dir_reg.stdout != "")
 
 - name: "{{name}}: Remove local log dir"
   file: path=/opt/{{name}}{{name_suffix}}-{{version}}/log
