@@ -1,46 +1,89 @@
-[test]
-test ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
+[test1]
+test1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
 
-[dev]
-alley-dev ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-alley-dev/0/virtualbox/vagrant_private_key
-
-[stg]
-alley-stg ansible_ssh_host=10.10.0.152 ansible_ssh_user=root
-
-#[demo]
-#alley-demo ansible_ssh_host=95.85.18.53 ansible_ssh_user=root
+[test2]
+test2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
 
 [local:children]
-test
-dev
-stg
+test1
+test2
 
-#[remote:children]
-#demo
+[remote:children]
 
-#[local:vars]
-#http_proxy=
+[local:vars]
 
-#[remote:vars]
-#http_proxy=http://mirrorpkg1.dev1team.net:80
+[remote:vars]
+http_proxy=http://mirrorpkg1.dev1team.net:80
 
-[test:vars]
+[test1:vars]
 rabbitmq_host=10.10.0.175
 rabbitmq_port=5672
-rabbitmq_user=alley
+rabbitmq_username=alley
 rabbitmq_password=alley
 
-#smppsink_version=1.3.0
-#smppsink_port=2777
+rpc_timeout=30000
 
-#[dev:vars]
-#smppsink_version=1.3.0
-#smppsink_port=8002
+funnel_version=2.6.1
 
-#[stg:vars]
-#smppsink_version=1.3.0
-#smppsink_port=8002
+soap_version=2.7.0
+soap_http_addr={0,0,0,0}
+soap_http_port=8088
 
-#[demo:vars]
-#smppsink_version=1.1.0
-#smppsink_port=8002
+mm_version=2.7.0
+mm_http_addr={0,0,0,0}
+mm_http_port=8081
+mm_root_url=""
+
+oneapi_version=2.6.0
+oneapi_http_addr={0,0,0,0}
+oneapi_http_port=8081
+
+kelly_version=2.6.0
+kelly_http_addr={0,0,0,0}
+kelly_http_port=8080
+kelly_mongodb={single, {"10.10.0.175", 27017}}
+kelly_receipt_batch_qos=5000
+
+just_version=2.7.0
+
+smppsink_version=1.1.0
+smppsink_smpp_addr={0,0,0,0}
+smppsink_smpp_port=2777
+
+[test2:vars]
+base_data_dir=/mnt/data
+
+rabbitmq_host=10.10.0.175
+rabbitmq_port=5672
+rabbitmq_username=alley
+rabbitmq_password=alley
+
+#def
+rpc_timeout=5000
+
+funnel_version=2.6.1
+
+soap_version=2.7.0
+soap_http_addr={0,0,0,0}
+soap_http_port=8088
+
+mm_version=2.7.0
+mm_http_addr={0,0,0,0}
+mm_http_port=8081
+mm_root_url=""
+
+oneapi_version=2.6.0
+oneapi_http_addr={0,0,0,0}
+oneapi_http_port=8081
+
+kelly_version=2.7.0
+kelly_http_addr={0,0,0,0}
+kelly_http_port=8080
+kelly_mongodb={replica_set, {<<"alley">>, [{localhost, 40001}, {localhost, 40002}, {localhost, 40003}]}}
+kelly_receipt_batch_qos=100
+
+just_version=2.7.0
+
+smppsink_version=1.2.0
+smppsink_smpp_addr={0,0,0,0}
+smppsink_smpp_port=8003

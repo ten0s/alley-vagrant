@@ -26,6 +26,11 @@
   changed_when: false
   when: data_dir is defined
 
+- name: "{{name}}: Ensure data dir exists"
+  file: path={{data_dir}}
+        state=directory
+  when: data_dir is defined
+
 - name: "{{name}}: Move local data dir contents"
   command: mv /opt/{{name}}{{name_suffix}}-{{version}}/data/ {{data_dir}}
   when: (not curr_ver_reg.stat.exists) and (data_dir is defined) and (not data_dir_reg.stat.exists)
@@ -51,6 +56,11 @@
   changed_when: false
   when: log_dir is defined
 
+- name: "{{name}}: Ensure log dir exists"
+  file: path={{log_dir}}
+        state=directory
+  when: log_dir is defined
+
 - name: "{{name}}: Move local log dir contents"
   command: mv /opt/{{name}}{{name_suffix}}-{{version}}/log/ {{log_dir}}
   when: (not curr_ver_reg.stat.exists) and (log_dir is defined) and (not log_dir_reg.stat.exists)
@@ -70,8 +80,8 @@
 #
 #
 
-- name: "{{name}}: Copy sys.config"
-  template: src=templates/{{name}}/sys.config
+- name: "{{name}}: Provision config"
+  template: src=templates/{{name}}/sys.config.j2
             dest=/opt/{{name}}{{name_suffix}}-{{version}}/releases/1/
   when: has_config
 

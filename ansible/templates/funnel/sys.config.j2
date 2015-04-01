@@ -2,7 +2,7 @@
 {funnel_mini, [
     {amqp_host,             "{{rabbitmq_host}}"},
     {amqp_port,             {{rabbitmq_port}}},
-    {amqp_username,         <<"{{rabbitmq_user}}">>},
+    {amqp_username,         <<"{{rabbitmq_username}}">>},
     {amqp_password,         <<"{{rabbitmq_password}}">>},
     {amqp_virtual_host,     <<"/">>},
     {queue_backend_auth,    <<"pmm.alley.kelly.auth">>},
@@ -25,25 +25,17 @@
     {bulk_threshold, 100}
 ]},
 
-{billy_client, [
-    {enabled, false},
-    {host, "127.0.0.1"},
-    {port, 16062},
-    {username, <<"funnel">>},
-    {password, <<"funnel">>}
-]},
-
 {rmql, [
     {amqp_props, [
         {host, "{{rabbitmq_host}}"},
         {port, {{rabbitmq_port}}},
-        {username, <<"{{rabbitmq_user}}">>},
+        {username, <<"{{rabbitmq_username}}">>},
         {password, <<"{{rabbitmq_password}}">>},
         {vhost, <<"/">>},
         {qos, 100}
     ]},
     {survive, true},
-    {rpc_timeout, 5000}
+    {rpc_timeout, {{rpc_timeout}}}
 ]},
 
 {lager, [
