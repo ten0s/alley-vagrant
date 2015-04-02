@@ -59,3 +59,5 @@ test2 | success >> {
 ...
 
 $ ansible-playbook setup.yml
+OR
+$ ansible-playbook setup.yml --limit test1 --tags funnel,just
