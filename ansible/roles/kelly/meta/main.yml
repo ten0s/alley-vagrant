@@ -1,4 +1,0 @@
----
-dependencies:
-- {role: erl_app, name: kelly,
-                  version: "{{kelly_version}}"}

@@ -1,4 +1,0 @@
----
-dependencies:
-- {role: erl_app, name: oneapi_srv,
-                  version: "{{oneapi_version}}"}

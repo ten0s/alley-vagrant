@@ -1,5 +1,0 @@
----
-dependencies:
-- {role: erl_app, name: just,
-                  name_suffix: _mini,
-                  version: "{{just_version}}"}

@@ -1,5 +1,0 @@
----
-dependencies:
-- {role: erl_app, name: "funnel",
-                  name_suffix: "_mini",
-                  version: "{{funnel_version}}"}
