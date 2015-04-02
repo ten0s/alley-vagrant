@@ -36,9 +36,6 @@ rabbitmq_port=5672
 rabbitmq_username=alley
 rabbitmq_password=alley
 
-#default
-rpc_timeout=5000
-
 kelly_mongodb={replica_set, {<<"alley">>, [{localhost, 40001}, {localhost, 40002}, {localhost, 40003}]}}
 
 smppsink_version=1.2.0

@@ -2,7 +2,4 @@
 dependencies:
 - {role: erl_app, name: "funnel",
                   name_suffix: "_mini",
-                  version: "{{funnel_version}}",
-                  data_dir: "{{base_data_dir}}/funnel/{{data_dir_suffix}}",
-                  log_dir: "{{base_log_dir}}/funnel/",
-                  user: "{{run_user}}"}
+                  version: "{{funnel_version}}"}

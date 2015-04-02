@@ -1,12 +1,10 @@
 ---
-- name: Setup
+- name: Setup PowerAlley backend
   hosts: all
   sudo: true
-  vars:
-  - run_user: bms
 
   roles:
-  - {role: common, user: "{{run_user}}"}
+  - common
   - funnel
   - soap_srv
   - mm_srv

@@ -2,4 +2,5 @@
 dependencies:
 - {role: erl_app, name: smppsink,
                   version: "{{smppsink_version}}",
-                  user: "{{run_user}}"}
+                  global_data_dir: false,
+                  global_log_dir: false}
