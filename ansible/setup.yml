@@ -4,11 +4,11 @@
   sudo: true
 
   roles:
-  - common
-  - funnel
-  - soap_srv
-  - mm_srv
-  - oneapi_srv
-  - kelly
-  - just
-  - smppsink
+  - {role: common, tags: ["common"]}
+  - {role: funnel, tags: ["funnel"]}
+  - {role: soap_srv, tags: ["soap"]}
+  - {role: mm_srv, tags: ["mm"]}
+  - {role: oneapi_srv, tags: ["oneapi"]}
+  - {role: kelly, tags: ["kelly"]}
+  - {role: just, tags: ["just"]}
+  - {role: smppsink, tags: ["smppsink"]}
