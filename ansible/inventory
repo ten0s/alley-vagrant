@@ -1,6 +1,9 @@
 [staging]
 staging ansible_ssh_host=10.10.0.152 ansible_ssh_user=root
 
+[demo]
+demo ansible_ssh_host=95.85.18.53 ansible_ssh_user=root
+
 [test1]
 test1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
 
@@ -13,6 +16,7 @@ test2
 staging
 
 [remote:children]
+demo
 
 [local:vars]
 
@@ -23,6 +27,13 @@ http_proxy=http://mirrorpkg1.dev1team.net:80
 base_data_dir=/mnt/data
 data_dir_suffix=data
 rpc_timeout=30000
+smppsink_smpp_port=8002
+
+[demo:vars]
+base_data_dir=/mnt/data
+data_dir_suffix=data
+rpc_timeout=30000
+kelly_receipts_qos=1000
 smppsink_smpp_port=8002
 
 [test1:vars]
