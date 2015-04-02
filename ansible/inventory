@@ -1,3 +1,6 @@
+[staging]
+staging ansible_ssh_host=10.10.0.152 ansible_ssh_user=root
+
 [test1]
 test1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/ten0s/.vagrant.d/boxes/ten0s-VAGRANTSLASH-centos6.5_x86_64/0/virtualbox/vagrant_private_key
 
@@ -7,6 +10,7 @@ test2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203 ansible_ssh_user=vagrant 
 [local:children]
 test1
 test2
+staging
 
 [remote:children]
 
@@ -14,6 +18,12 @@ test2
 
 [remote:vars]
 http_proxy=http://mirrorpkg1.dev1team.net:80
+
+[staging:vars]
+base_data_dir=/mnt/data
+data_dir_suffix=data
+rpc_timeout=30000
+smppsink_smpp_port=8002
 
 [test1:vars]
 rabbitmq_host=10.10.0.175
