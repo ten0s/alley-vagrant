@@ -70,7 +70,7 @@
     {amqp_receipt_batch, [
         {queue, <<"pmm.alley.kelly.receipt.sms">>},
         {handler, k_receipt_batch_handler},
-        {rmq_qos, {{kelly_receipt_batch_qos}}}
+        {rmq_qos, {{kelly_receipts_qos}}}
     ]},
     {amqp_funnel_events, [
         {queue, <<"pmm.alley.funnel.events">>},

@@ -25,7 +25,7 @@ rpc_timeout=30000
 
 kelly_version=2.6.0
 kelly_mongodb={single, {"10.10.0.175", 27017}}
-kelly_receipt_batch_qos=5000
+kelly_receipts_qos=5000
 
 [test2:vars]
 base_data_dir=/mnt/data
