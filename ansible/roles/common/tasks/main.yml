@@ -1,12 +1,4 @@
 ---
-- name: Ensure libselinux-python is installed
-  yum: name=libselinux-python
-      state=present
-
-- name: Ensure EPEL is installed
-  yum: name=epel-release
-       state=present
-
 - name: Ensure user exists
   user: name={{run_user}}
 
@@ -18,3 +10,13 @@
   copy: src=files/pmm-base.repo
         dest=/etc/yum.repos.d/pmm-base.repo
         mode=644
+
+- name: Ensure EPEL is installed
+  yum: name=epel-release
+       state=present
+
+- name: Ensure prerequisites are installed
+  yum: name={{item}} state=present
+  with_items:
+  - libselinux-python
+  - tokyocabinet
