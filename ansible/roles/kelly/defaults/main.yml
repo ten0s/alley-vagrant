@@ -1,5 +1,4 @@
 ---
-kelly_version: 2.7.0
 kelly_http_addr: '{0,0,0,0}'
 kelly_http_port: 8080
 kelly_mongodb: '{single, {"127.0.0.1", 27017}}'

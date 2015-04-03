@@ -1,5 +1,4 @@
 ---
-mm_version: 2.7.0
 mm_http_addr: '{0,0,0,0}'
 mm_http_port: 8083
 mm_root_url: '""'
