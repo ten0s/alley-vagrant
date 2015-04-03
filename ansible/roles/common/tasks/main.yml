@@ -1,4 +1,9 @@
 ---
+- name: Ensure ansible's deps are installed
+  yum: name={{item}} state=present
+  with_items:
+  - libselinux-python
+
 - name: Ensure user exists
   user: name={{run_user}}
 
@@ -15,8 +20,7 @@
   yum: name=epel-release
        state=present
 
-- name: Ensure prerequisites are installed
+- name: Ensure deps are installed
   yum: name={{item}} state=present
   with_items:
-  - libselinux-python
   - tokyocabinet
