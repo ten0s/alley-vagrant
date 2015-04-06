@@ -65,7 +65,7 @@
 #
 
 - name: "Define log_dir"
-  set_fact: log_dir="{{base_log_dir}}/{{name}}/"
+  set_fact: log_dir="{{base_log_dir}}/{{name}}"
   when: global_log_dir
 
 - name: "Register log dir stat"
