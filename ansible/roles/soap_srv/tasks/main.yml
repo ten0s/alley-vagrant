@@ -3,6 +3,7 @@
   vars:
       name: soap_srv
       version: "{{soap_version}}"
+      global_data_dir: false
 
 - name: "Provision config"
   template: src=sys.config.j2
