@@ -1,5 +1,0 @@
-[demo]
-demo ansible_ssh_host=95.85.18.53 ansible_ssh_user=root
-
-[outdoors:children]
-demo

@@ -1,4 +1,0 @@
----
-soap_root_path: '/bmsgw/soap/messenger.asmx'
-soap_http_addr: '{0,0,0,0}'
-soap_http_port: 8088
