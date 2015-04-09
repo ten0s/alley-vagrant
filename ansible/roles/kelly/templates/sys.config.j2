@@ -127,10 +127,13 @@
 {snmp, [
     {manager,[
         {config, [
-            {dir, "manager/conf/"},
-            {db_dir, "manager/db/"}
+            {dir, "snmp/conf/"},
+            {db_dir, "snmp/db/"}
         ]},
-        {mibs, ["mibs/JUST-MIB"]}
+        {mibs, [
+            "mibs/FUNNEL-MIB",
+            "mibs/JUST-MIB"
+        ]}
     ]}
 ]}
 ].
