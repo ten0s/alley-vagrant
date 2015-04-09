@@ -1,5 +1,5 @@
 ---
-- name: Setup PowerAlley backend
+- name: Deploy PowerAlley backend services
   hosts: all
   sudo: true
 
