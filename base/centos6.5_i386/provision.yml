@@ -1,0 +1,115 @@
+---
+- hosts: all
+  vars:
+  - vbox_version: 4.3.26
+  tasks:
+  - name: Install Ansible's deps
+    sudo: true
+    yum: name={{item}} state=present
+    with_items:
+    - libselinux-python
+
+##
+# http://www.virtualbox.org/manual/ch04.html
+##
+
+  - name: Import RPMForge GPG key
+    sudo: true
+    rpm_key: key={{item}} state=present
+    with_items:
+    - http://apt.sw.be/RPM-GPG-KEY.dag.txt
+
+  - name: Install RPMForge repo
+    sudo: true
+    command: rpm -Uvh --force {{item.href}} creates={{item.creates}}
+    with_items:
+    - {
+       href: "http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm",
+       creates: "/etc/yum.repos.d/rpmforge.repo"
+      }
+
+  - name: Update kernel
+    sudo: true
+    yum: name=kernel state=latest
+    register: kernel
+
+  - name: Reboot the box
+    sudo: true
+    command: reboot
+    when: kernel.changed
+
+  - name: Wait for the box to boot
+    local_action: wait_for host=127.0.0.1
+                           port=2402
+                           search_regex=OpenSSH
+                           delay=20
+    when: kernel.changed
+
+  - name: Register Guest Additions stat
+    stat: path=/opt/VBoxGuestAdditions-{{vbox_version}}
+    register: vba
+
+  - name: Install deps to build kernel modules
+    sudo: true
+    yum: name={{item}} state=latest
+    with_items:
+    - cpp
+    - gcc
+    - glibc-devel
+    - glibc-headers
+    - kernel-devel
+    - kernel-headers
+    - perl
+    - dkms # from RPMForge
+    when: not vba.stat.exists
+
+  - name: Copy Guest Additions ISO
+    copy: src=/usr/share/virtualbox/VBoxGuestAdditions.iso
+          dest=/tmp/VBoxGuestAdditions.iso
+    when: not vba.stat.exists
+
+  - name: Mount Guest Additions ISO
+    sudo: true
+    mount: name=/mnt/vba
+           src=/tmp/VBoxGuestAdditions.iso
+           fstype=iso9660
+           opts=loop,ro
+           state=mounted
+    when: not vba.stat.exists
+
+  - name: Install Guest Additions
+    sudo: true
+    command: /mnt/vba/VBoxLinuxAdditions.run
+    register: result
+    failed_when: "'FAILED' in result.stderr"
+    when: not vba.stat.exists
+
+  - name: Umount Guest Additions ISO
+    sudo: true
+    mount: name=/mnt/vba
+           src=/tmp/VBoxGuestAdditions.iso
+           fstype=iso9660
+           state=absent
+
+  - name: Remove Guest Additions ISO
+    sudo: true
+    file: path=/tmp/VBoxGuestAdditions.iso
+          state=absent
+
+  - name: Remove old Guest Additions
+    sudo: true
+    file: path=/opt/VBoxGuestAdditions-4.3.8
+          state=absent
+
+  - name: Remove deps to build kernel modules
+    sudo: true
+    yum: name={{item}} state=absent
+    with_items:
+    - cpp
+    - gcc
+    - glibc-devel
+    - glibc-headers
+    - kernel-devel
+    - kernel-headers
+    - perl
+    - dkms
