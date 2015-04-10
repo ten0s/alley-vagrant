@@ -84,7 +84,7 @@
     failed_when: "'FAILED' in result.stderr"
     when: not vba.stat.exists
 
-  - name: Umount Guest Additions ISO
+  - name: Unmount Guest Additions ISO
     sudo: true
     mount: name=/mnt/vba
            src=/tmp/VBoxGuestAdditions.iso
