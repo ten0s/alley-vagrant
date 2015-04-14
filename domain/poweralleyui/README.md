@@ -21,61 +21,7 @@ machine | success >> {
 Provision the box.
 
 <pre>
-$ ansible-playbook setup.yml -i inventory
-</pre>
-
-## Create the box manually
-
-<pre>
-$ vagrant up
-$ vagrant ssh
-</pre>
-
-Inside the virtual machine:
-
-<pre>
-cd /vagrant
-</pre>
-
-MySQL
-
-<pre>
-sudo yum -y install mysql-server-5.1.73
-sudo cp files/etc/my.cnf /etc/
-sudo service mysqld start
-sudo chkconfig mysqld on
-mysql -u root
-GRANT ALL PRIVILEGES ON *.* TO 'pmm'@'localhost' IDENTIFIED BY 'g0ds4v3th3Qu33n' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'pmm'@'%' IDENTIFIED BY 'g0ds4v3th3Qu33n' WITH GRANT OPTION;
-exit
-</pre>
-
-Nginx
-
-<pre>
-sudo yum -y install nginx-1.0.15
-sudo cp files/etc/nginx/nginx.conf /etc/nginx/
-sudo cp files/etc/nginx/conf.d/server.conf /etc/nginx/conf.d/
-sudo cp files/etc/nginx/fastcgi_params /etc/nginx/fastcgi_params
-sudo service nginx start
-sudo chkconfig nginx on
-</pre>
-
-Supervisord
-
-<pre>
-sudo yum -y install python-setuptools
-sudo easy_install pip
-sudo pip install supervisor
-sudo mkdir -p /etc/supervisor.d
-sudo mkdir -p /var/log/pmm
-sudo chown -R bms:bms /var/log/pmm
-sudo cp files/etc/supervisord.conf /etc/supervisord.conf
-sudo cp files/etc/supervisor.d/poweralleyui.conf /etc/supervisor.d/
-sudo cp files/etc/init.d/supervisord /etc/init.d/
-sudo mkdir -p /opt/bin
-sudo cp files/opt/bin/poweralleyui.sh /opt/bin/
-sudo chkconfig supervisord on
+$ ansible-playbook provision.yml
 </pre>
 
 PowerAlleyUI
