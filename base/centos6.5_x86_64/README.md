@@ -13,6 +13,10 @@ GuestAdditions 4.3.26 running --- OK.
 <pre>
 $ vagrant package --output ten0s_centos6.5_x86_64.box
 $ vagrant box add -f ten0s/centos6.5_x86_64 ./ten0s_centos6.5_x86_64.box
-$ vagrant destroy -f
-$ rm ten0s_centos6.5_x86_64.box
+</pre>
+
+### Cleanup
+
+<pre>
+$ vagrant destroy -f; rm -rf .vagrant/ *.box
 </pre>

@@ -4,24 +4,6 @@
 
 <pre>
 $ vagrant up
-$ vagrant ssh-config
-</pre>
-
-Make sure ssh config matches data in **inventory** file.
-Then check the connection.
-
-<pre>
-$ ansible machine -i inventory -m ping
-machine | success >> {
-    "changed": false,
-    "ping": "pong"
-}
-</pre>
-
-Provision the box.
-
-<pre>
-$ ansible-playbook provision.yml
 </pre>
 
 PowerAlleyUI
@@ -46,5 +28,10 @@ exit
 <pre>
 $ vagrant package --output ten0s_centos6.5_mono3.2.8_poweralleyui_x86_64.box
 $ vagrant box add -f ten0s/ten0s_centos6.5_mono3.2.8_poweralleyui_x86_64 ./ten0s_centos6.5_mono3.2.8_poweralleyui_x86_64.box
-$ vagrant destroy --force
+</pre>
+
+### Cleanup
+
+<pre>
+$ vagrant destroy -f; rm -rf .vagrant/ *.box
 </pre>
