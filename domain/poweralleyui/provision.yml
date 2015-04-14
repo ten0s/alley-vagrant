@@ -1,0 +1,11 @@
+---
+- hosts: all
+  sudo: true
+  roles:
+  - {role: common}
+
+  tasks:
+  - include: tasks/common.yml
+  - include: tasks/mysql.yml
+  - include: tasks/nginx.yml
+  - include: tasks/supervisord.yml

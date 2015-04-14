@@ -1,0 +1,21 @@
+---
+- name: Ensure ansible's deps are installed
+  yum: name={{item}} state=present
+  with_items:
+  - libselinux-python
+
+- name: Ensure user exists
+  user: name={{run_user}}
+
+- name: Ensure sus.dev1team.net in /etc/hosts
+  lineinfile: dest=/etc/hosts
+              line='178.124.154.132 sus.dev1team.net'
+
+- name: Ensure PMM-Base repo is enabled
+  copy: src=pmm-base.repo
+        dest=/etc/yum.repos.d/pmm-base.repo
+        mode=644
+
+- name: Ensure EPEL is installed
+  yum: name=epel-release
+       state=present

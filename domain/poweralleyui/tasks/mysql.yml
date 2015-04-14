@@ -1,0 +1,31 @@
+- name: Install MySQL
+  yum: name=mysql-server-5.1.73
+       state=present
+
+- name: Copy configuration
+  copy: src=files/etc/my.cnf
+        dest=/etc/my.cnf
+
+- name: Enable mysqld service
+  service: name=mysqld
+           state=restarted
+           enabled=true
+
+- name: Create DB
+  mysql_db: name=PowerAlley
+            state=present
+
+- name: Setup DB priviledges
+  mysql_user: name=pmm
+              host={{item}}
+              password=PASSWORD
+              priv=*.*:ALL,GRANT
+              state=present
+  mysql_user: name=pmm
+              host={{item}}
+              password=PASSWORD
+              priv=*.*:ALL,GRANT
+              state=present
+  with_items:
+  - localhost
+  - '%'

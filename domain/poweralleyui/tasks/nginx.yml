@@ -1,0 +1,18 @@
+- name: Install Nginx
+  yum: name=nginx-1.0.15
+       state=present
+
+- name: Copy configuration
+  copy: src={{item.src}} dest={{item.dest}}
+  with_items:
+  - {src: files/etc/nginx/nginx.conf,
+     dest: /etc/nginx/nginx.conf}
+  - {src: files/etc/nginx/conf.d/server.conf,
+     dest: /etc/nginx/conf.d/server.conf}
+  - {src: files/etc/nginx/fastcgi_params,
+     dest: /etc/nginx/fastcgi_params}
+
+- name: Enable nginx service
+  service: name=nginx
+           state=restarted
+           enabled=true
