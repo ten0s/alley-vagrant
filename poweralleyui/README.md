@@ -4,7 +4,15 @@
 
 <pre>
 $ vagrant up
+$ ansible test -i inventories/test -m ping
+test | success >> {
+    "changed": false,
+    "ping": "pong"
+}
+$ ansible-playbook provision.yml -i inventories/test
 </pre>
+
+Run the provision again if it fails on `Install Supervisord'.
 
 ### Package
 

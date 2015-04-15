@@ -1,0 +1,6 @@
+---
+poweralleyui_version: 1.4.1.36
+poweralleyui_db_server: 127.0.0.1
+poweralleyui_db_database: poweralley
+poweralleyui_db_username: pmm
+poweralleyui_db_password: PASSWORD
