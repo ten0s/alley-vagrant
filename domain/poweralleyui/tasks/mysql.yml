@@ -2,30 +2,32 @@
   yum: name=mysql-server-5.1.73
        state=present
 
-- name: Copy configuration
+- name: Copy MySQL configuration
   copy: src=files/etc/my.cnf
         dest=/etc/my.cnf
 
-- name: Enable mysqld service
+- name: Enable MySQL service
   service: name=mysqld
-           state=restarted
            enabled=true
+           state=started
 
 - name: Create DB
-  mysql_db: name=PowerAlley
+  mysql_db: name={{poweralleyui_db_database}}
             state=present
+  notify: Restart MySQL
 
 - name: Setup DB priviledges
-  mysql_user: name=pmm
+  mysql_user: name={{poweralleyui_db_username}}
               host={{item}}
-              password=PASSWORD
+              password={{poweralleyui_db_password}}
               priv=*.*:ALL,GRANT
               state=present
-  mysql_user: name=pmm
+  mysql_user: name={{poweralleyui_db_username}}
               host={{item}}
-              password=PASSWORD
+              password={{poweralleyui_db_password}}
               priv=*.*:ALL,GRANT
               state=present
   with_items:
   - localhost
   - '%'
+  notify: Restart MySQL

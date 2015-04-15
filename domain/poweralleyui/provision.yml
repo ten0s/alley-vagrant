@@ -1,6 +1,24 @@
 ---
 - hosts: all
   sudo: true
+  vars:
+  - poweralleyui_version: 1.4.1.36
+  - poweralleyui_db_server: 127.0.0.1
+  - poweralleyui_db_database: poweralley
+  - poweralleyui_db_username: pmm
+  - poweralleyui_db_password: PASSWORD
+
+  handlers:
+    - name: Restart MySQL
+      service: name=mysqld state=restarted
+
+    - name: Restart Nginx
+      service: name=nginx state=restarted
+
+    - name: Restart Supervisord
+      service: name=supervisord state=restarted
+      notify: Restart Nginx
+
   roles:
   - {role: common}
 
@@ -9,3 +27,4 @@
   - include: tasks/mysql.yml
   - include: tasks/nginx.yml
   - include: tasks/supervisord.yml
+  - include: tasks/poweralleyui.yml

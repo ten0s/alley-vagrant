@@ -2,7 +2,12 @@
   yum: name=nginx-1.0.15
        state=present
 
-- name: Copy configuration
+- name: Enable Nginx service
+  service: name=nginx
+           enabled=true
+           state=started
+
+- name: Copy Nginx configuration
   copy: src={{item.src}} dest={{item.dest}}
   with_items:
   - {src: files/etc/nginx/nginx.conf,
@@ -11,8 +16,4 @@
      dest: /etc/nginx/conf.d/server.conf}
   - {src: files/etc/nginx/fastcgi_params,
      dest: /etc/nginx/fastcgi_params}
-
-- name: Enable nginx service
-  service: name=nginx
-           state=restarted
-           enabled=true
+  notify: Restart Nginx

@@ -1,0 +1,12 @@
+[pmm-bankaudi-rel]
+name=PMM release repository for BankAudi
+enabled=1
+gpgcheck=0
+baseurl=http://sus.dev1team.net/rawshaun-sus/bankaudi/rel/
+
+
+[pmm-bankaudi-dev]
+name=PMM release repository for BankAudi
+enabled=1
+gpgcheck=0
+baseurl=http://sus.dev1team.net/rawshaun-sus/bankaudi/dev/

@@ -1,0 +1,24 @@
+---
+- name: Ensure PowerAlleyUI is installed
+  yum: name=pmm-bms-poweralleyui-bankaudi-{{poweralleyui_version}}
+       state=installed
+  notify: Restart Supervisord
+
+- name: Provision Web.config
+  template: src=files/Web.config.j2
+            dest=/opt/poweralleyui-{{poweralleyui_version}}/Web.config
+  notify: Restart Supervisord
+
+- name: Ensure correct rights
+  file: path=/opt/poweralleyui-{{poweralleyui_version}}
+        owner={{run_user}}
+        group={{run_user}}
+        recurse=true
+        follow=true
+  notify: Restart Supervisord
+
+- name: Ensure link exists
+  file: src=/opt/poweralleyui-{{poweralleyui_version}}
+        dest=/opt/poweralleyui
+        state=link
+  notify: Restart Supervisord

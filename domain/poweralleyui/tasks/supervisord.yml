@@ -1,6 +1,5 @@
 - name: Install Supervisord
-  pip: name=supervisor
-       state=present
+  pip: name=supervisor state=latest
 
 - name: Create Supervisord's config dir
   file: path={{item.path}} state=directory
@@ -15,6 +14,7 @@
   - {path: /var/log/pmm,
      owner: bms,
      group: bms}
+  notify: Restart Supervisord
 
 - name: Copy configuration
   copy: src={{item.src}}
@@ -33,8 +33,10 @@
   - {src: files/opt/bin/poweralleyui.sh,
      dest: /opt/bin/poweralleyui.sh,
      mode: 755}
+  notify: Restart Supervisord
 
-- name: Enable supervisord service
+- name: Enable Supervisord service
   service: name=supervisord
-           state=restarted
            enabled=true
+           state=started
+  notify: Restart Supervisord
