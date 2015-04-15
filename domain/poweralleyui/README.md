@@ -1,12 +1,12 @@
-# Create PowerAlleyUI environment box based on CentOS 6.5 x86_64 Mono 3.2.8
+## Create PowerAlleyUI environment box based on CentOS 6.5 x86_64 Mono 3.2.8
 
-## Create the box using Ansible
+### Create the box using Ansible
 
 <pre>
 $ vagrant up
 </pre>
 
-## Package
+### Package
 
 <pre>
 $ vagrant package --output ten0s_centos6.5_mono3.2.8_poweralleyui_x86_64.box
