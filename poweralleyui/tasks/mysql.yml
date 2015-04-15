@@ -1,3 +1,8 @@
+- name: Install MySQL playbook's deps
+  yum: name={{item}} state=latest
+  with_items:
+  - MySQL-python
+
 - name: Install MySQL
   yum: name=mysql-server-5.1.73
        state=present

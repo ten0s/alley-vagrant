@@ -12,8 +12,6 @@ test | success >> {
 $ ansible-playbook provision.yml -i inventories/test
 </pre>
 
-Run the provision again if it fails on `Install Supervisord'.
-
 ### Package
 
 <pre>

@@ -1,5 +1,10 @@
+- name: Install Supervisord playbook's deps
+  yum: name={{item}} state=latest
+  with_items:
+  - python-setuptools
+
 - name: Install Supervisord
-  pip: name=supervisor state=latest
+  easy_install: name=supervisor
 
 - name: Create Supervisord's config dir
   file: path={{item.path}} state=directory

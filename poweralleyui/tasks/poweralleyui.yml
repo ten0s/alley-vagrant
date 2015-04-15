@@ -1,5 +1,10 @@
 ---
-- name: Ensure PowerAlleyUI is installed
+- name: Add PMM-BankAudi repo
+  copy: src=files/etc/yum.repos.d/pmm-bankaudi.repo
+        dest=/etc/yum.repos.d/pmm-bankaudi.repo
+        mode=644
+
+- name: Install PowerAlleyUI
   yum: name=pmm-bms-poweralleyui-bankaudi-{{poweralleyui_version}}
        state=installed
   notify: Restart Supervisord
