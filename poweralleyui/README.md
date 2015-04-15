@@ -10,7 +10,14 @@ test | success >> {
     "ping": "pong"
 }
 $ ansible-playbook provision.yml -i inventories/test
+$ vagrant ssh
+$ ifconfig
+...
+          inet addr:10.10.0.169  Bcast:10.10.0.255  Mask:255.255.255.0
+...
 </pre>
+
+Open in browser http://10.10.0.169/power/
 
 ### Package
 
