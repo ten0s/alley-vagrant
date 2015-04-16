@@ -10,6 +10,7 @@
 - name: Copy MySQL configuration
   copy: src=files/etc/my.cnf
         dest=/etc/my.cnf
+  notify: Restart MySQL
 
 - name: Enable MySQL service
   service: name=mysqld
