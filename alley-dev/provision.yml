@@ -9,8 +9,9 @@
   - mongodb_version: 2.6.5
 
   roles:
-  - {role: common}
+  - {role: common, tags: ["common"]}
 
   tasks:
-  - include: tasks/erlang.yml
-  - include: tasks/rabbitmq.yml
+  - {include: tasks/erlang.yml, tags: ["erlang"]}
+  - {include: tasks/rabbitmq.yml, tags: ["rabbitmq"]}
+  - {include: tasks/mongodb.yml, tags: ["mongodb"]}
