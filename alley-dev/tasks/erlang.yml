@@ -2,7 +2,7 @@
   rpm_key: key=http://packages.erlang-solutions.com/rpm/erlang_solutions.asc
            state=present
 
-- name: Add Erlang Solution repo
+- name: Install Erlang Solution repo
   copy: src=files/erlang_solutions.repo
         dest=/etc/yum.repos.d/
         owner=root
