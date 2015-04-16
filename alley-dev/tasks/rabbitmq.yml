@@ -28,7 +28,9 @@
 
 - name: Start RabbitMQ
   command: rabbitmq-server -detached
-  failed_when: false
+  register: rmq_res
+  changed_when: (rmq_res.rc == 0) or (rmq_res.stdout.find('already running') == -1)
+  failed_when: (rmq_res.rc == 1) and (rmq_res.stdout.find('already running') == -1)
 
 - name: Wait for RabbitMQ
   wait_for: port=15672
@@ -47,5 +49,5 @@
   rabbitmq_user: user=guest
                  state=absent
 
-- name: Stop RabbitMQ
-  command: rabbitmqctl stop
+#- name: Stop RabbitMQ
+#  command: rabbitmqctl stop
