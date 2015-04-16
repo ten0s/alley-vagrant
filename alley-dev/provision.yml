@@ -8,6 +8,10 @@
   - rabbitmq_password: alley
   - mongodb_version: 2.6.5
 
+  handlers:
+    - name: Restart MongoDB
+      service: name=mongod state=restarted
+
   roles:
   - {role: common, tags: ["common"]}
 

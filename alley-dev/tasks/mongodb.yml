@@ -10,7 +10,12 @@
   with_items:
   - mongodb-org-{{mongodb_version}}
 
-- name: Enable MongoDB
+- name: Copy MongoDB config
+  copy: src=files/mongod.conf
+        dest=/etc/mongod.conf
+  notify: Restart MongoDB
+
+- name: Enable MongoDB service
   service: name=mongod
            enabled=true
-           state=running
+           state=started
