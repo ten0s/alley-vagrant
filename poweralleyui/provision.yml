@@ -13,10 +13,10 @@
       notify: Restart Nginx
 
   roles:
-  - {role: common}
+  - {role: common, tags: ["common"]}
 
   tasks:
-  - include: tasks/mysql.yml
-  - include: tasks/nginx.yml
-  - include: tasks/supervisord.yml
-  - include: tasks/poweralleyui.yml
+  - {include: tasks/mysql.yml, tags: ["mysql"]}
+  - {include: tasks/nginx.yml, tags: ["nginx"]}
+  - {include: tasks/supervisord.yml, tags: ["supervisor"]}
+  - {include: tasks/poweralleyui.yml, tags: ["ui"]}
