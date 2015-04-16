@@ -2,7 +2,7 @@
 - name: Add PMM-BankAudi repo
   copy: src=files/etc/yum.repos.d/pmm-bankaudi.repo
         dest=/etc/yum.repos.d/pmm-bankaudi.repo
-        mode=644
+        mode=0644
 
 - name: Add PMM-BankAudi Rel repo list
   copy: src=files/etc/yum.repos.d/pmm-bankaudi-rel.list
@@ -11,11 +11,11 @@
 - name: Add PMM-BankAudi Dev repo list
   copy: src=files/etc/yum.repos.d/pmm-bankaudi-dev.list
         dest=/etc/yum.repos.d/pmm-bankaudi-dev.list
-        mode=644
+        mode=0644
 
 - name: Install PowerAlleyUI
   yum: name=pmm-bms-poweralleyui-bankaudi-{{poweralleyui_version}}
-       state=installed
+       state=present
   notify: Restart Supervisord
 
 - name: Provision Web.config
