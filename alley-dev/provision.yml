@@ -7,6 +7,7 @@
   - rabbitmq_username: alley
   - rabbitmq_password: alley
   - mongodb_version: 2.6.5
+  - smppsim_version: 2.6.8
 
   handlers:
     - name: Restart MongoDB
@@ -19,3 +20,4 @@
   - {include: tasks/erlang.yml, tags: ["erlang"]}
   - {include: tasks/rabbitmq.yml, tags: ["rabbitmq"]}
   - {include: tasks/mongodb.yml, tags: ["mongodb"]}
+  - {include: tasks/smppsim.yml, tags: ["smppsim"]}
