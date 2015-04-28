@@ -12,8 +12,10 @@
   with_items:
   - {src: files/etc/nginx/nginx.conf,
      dest: /etc/nginx/nginx.conf}
-  - {src: files/etc/nginx/conf.d/server.conf,
-     dest: /etc/nginx/conf.d/server.conf}
   - {src: files/etc/nginx/fastcgi_params,
      dest: /etc/nginx/fastcgi_params}
+  notify: Restart Nginx
+
+- name: Create server.conf from template
+  template: src=files/etc/nginx/conf.d/server.conf dest=/etc/nginx/conf.d/server.conf
   notify: Restart Nginx
