@@ -63,9 +63,3 @@ Start Funnel, Kelly, Just
 <pre>
 smppload -s375296660002 -d375296543210 -v -D
 </pre>
-
-<pre>
-mongo kelly_`date +%Y_%m_01`
-db.mt_messages.findAndModify({query:{s:'delivered', t:'regular'}, sort:{rqt:-1}, update:{$set:{ri:'85ccccbf-f854-4898-86b1-5072d3e33da1', 'da.a':'375296543210'}}})
-exit
-</pre>
