@@ -1,3 +1,5 @@
+# OBSOLETE. DON'T USE. WILL BE REMOVED SOON
+
 # Creating PowerAlley dev environment box based on CentOS 6.5 x86_64
 
 ## Create the box semi-manually

@@ -1,3 +1,5 @@
+# OBSOLETE. DON'T USE. WILL BE REMOVED SOON
+
 ## Create PowerAlleyUI environment box based on CentOS 6.5 x86_64 Mono 3.2.8
 
 ### Create the box using Ansible
