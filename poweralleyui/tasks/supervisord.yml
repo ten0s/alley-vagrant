@@ -35,9 +35,12 @@
   - {src: files/etc/init.d/supervisord,
      dest: /etc/init.d/supervisord,
      mode: 755}
-  - {src: files/opt/bin/poweralleyui.sh,
-     dest: /opt/bin/poweralleyui.sh,
-     mode: 755}
+  notify: Restart Supervisord
+
+- name: Create poweralleyui.sh from template
+  template: src=files/opt/bin/poweralleyui.sh
+    dest=/opt/bin/poweralleyui.sh
+    mode=755
   notify: Restart Supervisord
 
 - name: Enable Supervisord service

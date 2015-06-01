@@ -4,3 +4,4 @@ poweralleyui_db_server: 127.0.0.1
 poweralleyui_db_database: poweralley
 poweralleyui_db_username: pmm
 poweralleyui_db_password: g0ds4v3th3Qu33n
+poweralleyui_mono_ip: 10.128.144.99
