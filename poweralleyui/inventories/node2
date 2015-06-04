@@ -1,2 +1,0 @@
-[node2]
-node2 ansible_ssh_host=107.170.35.72 ansible_ssh_port=6437
