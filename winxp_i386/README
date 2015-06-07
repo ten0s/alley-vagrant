@@ -1,0 +1,28 @@
+vagrant box add winxp http://aka.ms/vagrant-xp-ie
+http://www.vagrantbox.es/
+vagrant init winxp
+vagrant up
+
+https://modernievirt.blob.core.windows.net/vhd/virtualmachine_instructions_2014-01-21.pdf
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "box/win-server-2008"
+  config.vm.communicator = "winrm"
+end
+
+gem install -r winrm
+
+Configure WinRM for Vagrant
+https://gist.github.com/sneal/39d47401e9eaefcf8727
+OR BETTER
+https://chocolatey.org/packages/vagrant-winrm-config
+
+https://github.com/criteo/vagrant-winrm
+
+Add “config.vm.boot_mode = :gui” to Vagrantfile to get a Virtualbox with GUI console.
+
+http://stackoverflow.com/questions/9885108/ssh-to-vagrant-box-in-windows
+https://gist.github.com/haf/2843680
+
+http://www.tzehon.com/2014/01/20/provisioning-a-windows-box-with-vagrant-chocolatey-and-puppet-part-1/
+http://www.tzehon.com/2014/02/16/provisioning-a-windows-box-with-vagrant-chocolatey-and-puppet-part-2/
