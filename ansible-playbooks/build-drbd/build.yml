@@ -1,0 +1,62 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+  - build_dir: /usr/src
+  - download_dir: /tmp
+
+  tasks:
+  - name: Install build deps
+    yum: name={{item}} state=present
+    with_items:
+    - autoconf
+    - flex
+    - gcc
+    - libxslt
+    - kernel
+    - kernel-devel-{{kernel_version}}
+    - kernel-headers
+    - make
+    - rpm-build
+
+  - name: Create dirs needed to build rpms
+    file: path=/root/rpmbuild/{{item}}
+          state=directory
+    with_items:
+    - BUILD
+    - BUILDROOT
+    - RPMS
+    - SOURCES
+    - SPECS
+    - SRPMS
+
+  - name: Generate name and url
+    set_fact: drbd_name=drbd-{{drbd_version.major}}.{{drbd_version.minor}}.{{drbd_version.patch}}
+              drbd_url=http://oss.linbit.com/drbd/{{drbd_version.major}}.{{drbd_version.minor}}/drbd-{{drbd_version.major}}.{{drbd_version.minor}}.{{drbd_version.patch}}.tar.gz
+
+  - name: Download archive
+    get_url: url={{drbd_url}}
+             dest={{download_dir}}/{{drbd_name}}.tar.gz
+
+  - name: Unarchive
+    unarchive: src={{download_dir}}/{{drbd_name}}.tar.gz
+               dest={{build_dir}}
+               copy=false
+
+  - name: Configure build
+    command: ./configure --with-km
+    args:
+        chdir: '{{build_dir}}/{{drbd_name}}'
+
+  - name: Build rpm
+    command: make rpm
+    args:
+        chdir: '{{build_dir}}/{{drbd_name}}'
+
+  - name: Build km-rpm
+    shell: KDIR=/usr/src/kernels/{{kernel_version}}.{{ansible_architecture}}/ make km-rpm
+    args:
+        chdir: '{{build_dir}}/{{drbd_name}}'
+
+  - name: Copy rpms to shared folder
+    shell: mv /root/rpmbuild/RPMS/{{ansible_architecture}}/drbd*.rpm /shared/
