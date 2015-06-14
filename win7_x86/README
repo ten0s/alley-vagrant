@@ -1,25 +1,24 @@
-vagrant box add winxp http://aka.ms/vagrant-xp-ie
 http://www.vagrantbox.es/
-vagrant init winxp
+http://dev.modern.ie/tools/vms/
+
+vagrant box add win7-ie11 http://aka.ms/vagrant-win7-ie1
+vagrant init win7-ie11
 vagrant up
 
-https://modernievirt.blob.core.windows.net/vhd/virtualmachine_instructions_2014-01-21.pdf
+setup current guest additions
+disable firewall
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "box/win-server-2008"
-  config.vm.communicator = "winrm"
-end
+https://modernievirt.blob.core.windows.net/vhd/virtualmachine_instructions_2014-01-21.pdf
 
 gem install -r winrm
 
 Configure WinRM for Vagrant
 https://gist.github.com/sneal/39d47401e9eaefcf8727
+https://gist.github.com/andreptb/57e388df5e881937e62a
 OR BETTER
 https://chocolatey.org/packages/vagrant-winrm-config
 
 https://github.com/criteo/vagrant-winrm
-
-Add “config.vm.boot_mode = :gui” to Vagrantfile to get a Virtualbox with GUI console.
 
 http://stackoverflow.com/questions/9885108/ssh-to-vagrant-box-in-windows
 https://gist.github.com/haf/2843680
