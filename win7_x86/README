@@ -5,18 +5,25 @@ vagrant box add win7-ie11 http://aka.ms/vagrant-win7-ie1
 vagrant init win7-ie11
 vagrant up
 
-setup current guest additions
-disable firewall
+break it the first time
+
+change network to Work or Home
+enable WinRM by running as admin `enable-winrm.cmd' from shared folder
+
+vagrant rdp # should work now
+
+review!! disable a couple of services
+https://gist.github.com/uchagani/48d25871e7f306f1f8af
+
+upgrade guest additions
+install https://chocolatey.org/
 
 https://modernievirt.blob.core.windows.net/vhd/virtualmachine_instructions_2014-01-21.pdf
 
 gem install -r winrm
 
 Configure WinRM for Vagrant
-https://gist.github.com/sneal/39d47401e9eaefcf8727
 https://gist.github.com/andreptb/57e388df5e881937e62a
-OR BETTER
-https://chocolatey.org/packages/vagrant-winrm-config
 
 https://github.com/criteo/vagrant-winrm
 
@@ -28,3 +35,6 @@ http://www.tzehon.com/2014/02/16/provisioning-a-windows-box-with-vagrant-chocola
 
 http://docs.ansible.com/intro_windows.html
 http://kafecho.blogspot.com/search/label/Ansible
+
+https://github.com/diyan/pywinrm
+https://github.com/cloudsidekick/tclwinrm

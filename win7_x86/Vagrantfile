@@ -5,10 +5,11 @@ Vagrant.configure(2) do |config|
   config.vm.box = "win7-ie11"
   config.vm.communicator = "winrm"
   config.vm.guest = "windows"
+  config.vm.boot_timeout = 600
 
   config.winrm.host = "localhost"
   config.winrm.port = "5985"
-  config.winrm.username = 'IEuser'
+  config.winrm.username = 'IEUser'
   config.winrm.password = 'Passw0rd!'
 
   # Disable automatic box update checking. If you disable this, then
@@ -20,7 +21,7 @@ Vagrant.configure(2) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
 
-  # $ rdesktop localhost:3389
+  # $ rdesktop localhost:3389 -u IEUser -p 'Passw0rd!'
   config.vm.network "forwarded_port", guest: 3389, host: 3389, id: "rdp", auto_correct: true
   config.vm.network "forwarded_port", guest: 5985, host: 5985, id: "winrm", auto_correct: true
 
