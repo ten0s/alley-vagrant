@@ -22,14 +22,15 @@
     command: rpm -Uvh --force {{item.href}} creates={{item.creates}}
     with_items:
     - {
-       href: "http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el{{el_version}}.rf.{{ansible_machine}}.rpm",
-       creates: "/etc/yum.repos.d/rpmforge.repo"
+        href: "http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el{{el_version}}.rf.{{ansible_machine}}.rpm",
+        creates: "/etc/yum.repos.d/rpmforge.repo"
       }
 
   - name: Install EPEL
     sudo: true
     yum: name=epel-release
          state=present
+    when: el_version == 7
 
   - name: Update kernel
     sudo: true
