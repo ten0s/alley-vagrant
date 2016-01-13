@@ -22,9 +22,14 @@
     command: rpm -Uvh --force {{item.href}} creates={{item.creates}}
     with_items:
     - {
-       href: "http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.{{ansible_machine}}.rpm",
+       href: "http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el{{el_version}}.rf.{{ansible_machine}}.rpm",
        creates: "/etc/yum.repos.d/rpmforge.repo"
       }
+
+  - name: Install EPEL
+    sudo: true
+    yum: name=epel-release
+         state=present
 
   - name: Update kernel
     sudo: true
@@ -34,14 +39,14 @@
   - name: Reboot the box
     sudo: true
     command: reboot
-    when: kernel.changed
+    when: kernel.changed and (el_version != 7)
 
   - name: Wait for the box to boot
     local_action: wait_for host=127.0.0.1
                            port={{vbox_ssh_port}}
                            search_regex=OpenSSH
                            delay=20
-    when: kernel.changed
+    when: kernel.changed and (el_version != 7)
 
   - name: Register Guest Additions stat
     stat: path=/opt/VBoxGuestAdditions-{{vbox_version}}

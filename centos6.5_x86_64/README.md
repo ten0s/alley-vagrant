@@ -4,6 +4,19 @@
 
 <pre>
 $ vagrant up
+</pre>
+
+The most probably every first provisioning will fail with:
+<pre>
+Building the OpenGL support module[FAILED]
+</pre>
+
+This is alright for my cases. Just run one more:
+<pre>
+$ vagrant provision
+</pre>
+
+<pre>
 $ vagrant vbguest --status
 GuestAdditions 4.3.28 running --- OK.
 </pre>
