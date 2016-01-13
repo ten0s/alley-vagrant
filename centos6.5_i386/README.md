@@ -1,4 +1,4 @@
-## Create CentOS 6.5 i386 (2.6.32-504) based on chef/centos-6.5-i386 (2.6.32-431) (GuestAdditions 4.3.8) using VirtualBox 4.3.28
+## Create CentOS 6.5 i386 (2.6.32-573) based on opscode/centos-6.5-i386 (2.6.32-431) (GuestAdditions 4.3.8) using VirtualBox 4.3.28
 
 ### Create the box using Ansible
 
